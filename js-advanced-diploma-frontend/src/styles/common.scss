@@ -1,0 +1,236 @@
+@import '_variabiles.scss';
+@import '_fonts.scss';
+
+html {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  overflow-x: hidden;
+  min-width: 320px;
+}
+
+*,
+*::before,
+*::after {
+  -webkit-box-sizing: inherit;
+          box-sizing: inherit;
+}
+
+body {
+  min-height: 100vh;
+  min-width: 320px;
+  margin: 0;
+	padding: 0;
+  font-family: 'Open Sans', Arial, sans-serif;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 1.25;
+  color: $text;
+}
+
+input {
+  font: inherit;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+ul, ol {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.btn {
+  padding: 0;
+  background-color: transparent;
+  border: none;
+  font: inherit;
+  cursor: pointer;
+}
+
+.btn_primary,
+.btn_secondary {
+  display: inline-block;
+  padding: 1em 1.5em;
+  font-size: 100%;
+  text-align: center;
+  font-family: 'Ubuntu';
+  font-weight: 500;
+  border-radius: 7px;
+  transition: background-color 0.3s ease-in-out;
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+}
+
+.btn_primary {
+  background-color: $primary;
+  color: $textAccent;
+
+  &:hover:not(:disabled) {
+    background-color: $primaryHover;
+  }
+
+  &:active:not(:disabled) {
+    background-color: $primaryActive;
+  }
+
+  &:disabled {
+    background-color: $btnDisabled;
+  }
+}
+
+.btn_secondary {
+  color: $primary;
+  background: $textAccent;
+  border: 2px solid $primary;
+
+  &:hover:not(:disabled) {
+    background: $secondaryHover;
+  }
+
+  &:active:not(:disabled) {
+    background: $secondaryActive;
+  }
+
+  &:disabled {
+    border: 1px solid $btnDisabled;
+  }
+}
+
+.visually-hidden {
+  position: absolute !important;
+  clip: rect(1px 1px 1px 1px);
+  clip: rect(1px, 1px, 1px, 1px);
+  padding: 0 !important;
+  border: 0 !important;
+  height: 1px !important;
+  width: 1px !important;
+  overflow: hidden;
+}
+
+.clearfix::after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.input {
+  width: 100%;
+  padding: 0.625em 1em;
+  font-size: 100%;
+  line-height: 1.5;
+  color: $select;
+  font-family: 'Ubuntu';
+  font-weight: 400;
+  border: 1px solid $btnDisabled;
+  border-radius: 7px;
+  transition: background-color 0.3s ease-in-out,
+    border-color 0.3s ease-in-out;
+
+  &:hover {
+    background: rgba(160, 195, 255, 0.05);
+  }
+
+  &:focus {
+    outline: none;
+    border-color: $primary;
+    background: rgba(160, 195, 255, 0.1);
+  }
+
+  &::placeholder {
+    font-size: 100%;
+    line-height: 1.5;
+    color: $placeholder;
+  }
+}
+
+.validate-label {
+  position: relative;
+
+  & > .js-validate-label {
+    position: absolute;
+    right: 0;
+    left: 0;
+
+    & > .js-validate-success-icon,
+    & > .js-validate-error-icon {
+      position: absolute;
+      right: -30px;
+      top: -10px;
+    }
+
+    & > .js-validate-error-icon {
+      width: 24px;
+      height: 20px;
+    }
+
+    & > .js-validate-success-icon {
+      width: 20px;
+      height: 20px;
+    }
+
+    & > .js-validate-error-span,
+    & > .js-validate-success-span {
+      font-family: 'Ubuntu';
+      font-weight: 500;
+    }
+
+    & > .js-validate-error-span {
+      position: absolute;
+      right: 0;
+      top: 24px;
+      color: $error;
+    }
+
+    & > .js-validate-success-span {
+      color: $success;
+    }
+  }
+}
+
+.validation-success {
+  border-color: $success;
+}
+
+.validation-error {
+  border-color: $error;
+}
+
+.container {
+  max-width: 1540px;
+  margin: 0 auto;
+  padding: 0 50px;
+
+  // @media (max-width: 1024px) {
+  //   max-width: 952px;
+  //   margin: 0 36px;
+  //   padding: 0;
+  //   grid-template-columns: repeat(9, 1fr);
+  // }
+
+  // @media (max-width: 768px) {
+  //   margin: 0 72px;
+  //   max-width: 624px;
+  //   grid-template-columns: repeat(6, 1fr);
+  // }
+
+  // @media (max-width: 576px) {
+  //   margin: 0 12px;
+  // }
+
+  // @media (max-width: 320px) {
+  //   max-width: 296px;
+  // }
+}
+

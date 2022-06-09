@@ -1,0 +1,61 @@
+@import '_variabiles.scss';
+
+.auth {
+  margin: 100px auto;
+  padding: 50px 40px;
+  max-width: 500px;
+  min-height: 366px;
+  background: $background;
+  border-radius: 50px;
+
+  &__title {
+    margin: 0;
+    margin-bottom: 34px;
+    font-weight: 700;
+    font-size: 34px;
+    line-height: 40px;
+    text-align: center;
+  }
+}
+
+.auth-form {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  row-gap: 25px;
+
+  &__label {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-right: 45px;
+  }
+
+  &__span {
+    font-family: 'Ubuntu';
+    font-style: normal;
+    font-weight: 500;
+  }
+
+  &__input {
+    width: 300px;
+  }
+
+  &__btn {
+    margin-right: auto;
+    margin-left: 75px;
+    margin-top: 3px;
+    font-size: 14px;
+  }
+}
+
+.js-auth-error {
+  position: absolute;
+  bottom: -30px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: 'Ubuntu';
+  font-weight: 500;
+  color: $error;
+}
