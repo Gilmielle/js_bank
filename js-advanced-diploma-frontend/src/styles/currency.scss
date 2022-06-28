@@ -1,0 +1,246 @@
+@import '_variabiles.scss';
+
+.currency {
+  padding-top: 50px;
+  padding-bottom: 50px;
+  display: grid;
+  grid-template-areas:
+    'title title'
+    'user-cur cur-change'
+    'exchange cur-change';
+  grid-template-columns: 43.7% 52.4%;
+  column-gap: 50px;
+  row-gap: 44px;
+
+  @media (max-width: 1350px) {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__title {
+    grid-area: title;
+    margin: 0;
+    margin-bottom: 12px;
+    font-weight: 700;
+    font-size: 34px;
+    line-height: 1.18;
+    letter-spacing: -0.02em;
+  }
+
+  &__user-currency {
+    grid-area: user-cur;
+  }
+
+  &__currency-change {
+    grid-area: cur-change;
+  }
+
+  &__currency-exchange {
+    grid-area: exchange;
+  }
+}
+
+.user-currency,
+.currency-exchange,
+.currency-change {
+  padding: 50px;
+  border-radius: 50px;
+  box-shadow: $shadow;
+
+  @media (max-width: 576px) {
+    padding: 25px;
+  }
+}
+
+.user-currency {
+
+  &__title {
+    margin-bottom: 25px;
+  }
+}
+
+.currency-list {
+  display: flex;
+  flex-direction: column;
+  row-gap: 25px;
+
+  &__item {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 1;
+
+    &_exchange {
+      .currency-list__item-name,
+      .currency-list__item-value {
+        background-color: $backgroundDark;
+      }
+    }
+  }
+
+  &__item-name {
+    padding-right: 10px;
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 1.15;
+    letter-spacing: 0.1em;
+    background-color: $textAccent;
+
+    @media (max-width: 576px) {
+      font-size: 0.9em;
+    }
+
+    &::before {
+      content: '';
+      position: absolute;
+      bottom: 5px;
+      width: 100%;
+      border-bottom: 1px dashed $text;
+      z-index: -1;
+    }
+
+    &_up {
+
+      &::before {
+        border-bottom: 1px dashed $success;
+      }
+    }
+
+    &_down {
+
+      &::before {
+        border-bottom: 1px dashed $error;
+      }
+    }
+  }
+
+  &__item-value {
+    padding-left: 10px;
+    font-size: 20px;
+    line-height: 1.15;
+    letter-spacing: 0.1em;
+    background-color: $textAccent;
+
+    @media (max-width: 576px) {
+      font-size: 0.9em;
+    }
+
+    &_up,
+    &_down {
+      display: flex;
+      align-items: center;
+      column-gap: 10px;
+
+      &::after {
+        content: '';
+        width: 20px;
+        height: 10px;
+        background-repeat: no-repeat;
+      }
+    }
+
+    &_up {
+
+      &::after {
+        background-image: url('../assets/images/grow.svg');
+      }
+    }
+
+    &_down {
+
+      &::after {
+        background-image: url('../assets/images/fall.svg');
+      }
+    }
+  }
+}
+
+.currency-change {
+  align-self: flex-start;
+  min-height: 845px;
+  background: $backgroundDark;
+
+  @media (max-width: 1350px) {
+    align-self: auto;
+  }
+
+  @media (max-width: 576px) {
+    min-height: 750px;
+  }
+
+  &__title {
+    margin-bottom: 25px;
+  }
+}
+
+.currency-exchange {
+
+  &__title {
+    margin-bottom: 25px;
+  }
+}
+
+.exchange-form {
+  display: grid;
+  grid-template-areas:
+    'from to btn'
+    'sum sum btn';
+  grid-template-columns: 36% 34% 22%;
+  column-gap: 20px;
+  row-gap: 25px;
+
+  @media (max-width: 600px) {
+    grid-template-areas:
+    'from to'
+    'sum sum'
+    'btn btn';
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  & .js-validate-label {
+    right: 0;
+  }
+
+  &__label {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    column-gap: 20px;
+
+    @media (max-width: 576px) {
+      column-gap: 10px;
+    }
+
+    & .choices {
+      width: 100%;
+
+      &__inner {
+        border-color: $btnDisabled;
+      }
+    }
+
+    &_from {
+      grid-area: from;
+    }
+
+    &_to {
+      grid-area: to;
+    }
+
+    &_amount {
+      grid-area: sum;
+    }
+  }
+
+  &__btn {
+    grid-area: btn;
+    margin-left: 5px;
+    padding: 0;
+
+    @media (max-width: 600px) {
+      padding: 1em 1.5em;
+    }
+  }
+}

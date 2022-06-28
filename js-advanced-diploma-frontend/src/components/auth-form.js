@@ -1,38 +1,25 @@
 import { el } from 'redom';
 import '../styles/auth-form.scss';
-import { isLogPassValid } from './validations';
+import {
+  isLogPassValid,
+  createValidationMessage,
+  clearValidationMessages,
+  getFormData,
+} from './validations';
+import { getUserToken } from './api.js';
 import success from '../assets/images/success.svg';
 import error from '../assets/images/error.svg';
-
-function createValidationMessage(
-  elem,
-  validationClass,
-  validationImg,
-  validationImgClass,
-  validationErrorText = ''
-) {
-  elem.classList.add(validationClass);
-  const inputLabel = elem.parentNode;
-  const validationLabel = el('span', { class: 'js-validate-label' }, [
-    el('img', { class: validationImgClass, src: validationImg }),
-  ]);
-  if (validationClass === 'validation-error') {
-    const validationMessage = el('span', {
-      class: 'js-validate-error-span',
-      textContent: validationErrorText,
-    });
-    validationLabel.append(validationMessage);
-  }
-  inputLabel.append(validationLabel);
-}
+import * as Choices from 'choices.js';
+import '../assets/libs/choices.min.css';
 
 async function loginUser(data, inputs) {
   const result = isLogPassValid(data);
 
   if (result.success.length) {
-    for (let i = 0; i < result.success.length; i++) {
+    for (const successMessages of result.success) {
       createValidationMessage(
-        inputs[result.success[i]],
+        inputs[successMessages],
+        inputs[successMessages].parentNode,
         'validation-success',
         success,
         'js-validate-success-icon'
@@ -46,16 +33,10 @@ async function loginUser(data, inputs) {
     throw err;
   }
 
-  console.log(data);
-
-  const response = await fetch('http://localhost:3000/login', {
-    method: 'POST',
-    body: JSON.stringify(data),
-  }).then((res) => res.json());
-  console.log(response);
+  const response = await getUserToken(data);
 
   if (response.payload !== null) {
-    return response.token;
+    return response.payload.token;
   }
 
   if (response.payload === null) {
@@ -94,31 +75,38 @@ const authForm = el('form', { class: 'auth__form auth-form' }, [
   el('span', { class: 'js-auth-error' }),
   el('button', {
     class: 'auth-form__btn btn btn_primary',
+    type: 'submit',
     textContent: 'Войти',
   }),
 ]);
 
 authForm.addEventListener('submit', async (evt) => {
   evt.preventDefault();
-  const validationLabels = document.querySelectorAll('.js-validate-label');
-  validationLabels.forEach((label) => label.remove());
-  const errSpan = document.querySelector('.js-auth-error');
-  errSpan.textContent = '';
-  const data = {};
-  const inputs = {};
-  let token;
+  clearValidationMessages('.js-auth-error');
 
-  for (let i = 0; i < authForm.elements.length; ++i) {
-    const input = authForm.elements[i];
-    if (!input.name) continue;
-    data[input.name] = input.value.trim();
-    inputs[input.name] = input;
-    input.classList.remove('validation-error');
-    input.classList.remove('validation-success');
-  }
+  const [data, inputs] = getFormData(authForm);
+  let token;
+  const spinner = document.querySelector('.spinner');
 
   try {
+    spinner.classList.add('spinner_active');
     token = await loginUser(data, inputs);
+    sessionStorage.setItem('userToken', token);
+    const authBlock = document.querySelector('.auth');
+    authBlock.remove();
+    const header = document.querySelector('.header');
+    header.classList.remove('header_reduced');
+    document.title = 'Банк Coin | Счета';
+    import('./card-list.js').then(async (obj) => {
+      try {
+        spinner.classList.add('spinner_active');
+        const cardsBlock = await obj.createCardsBlock();
+        window.document.body.append(cardsBlock);
+        obj.createCustomSelect(Choices);
+      } finally {
+        spinner.classList.remove('spinner_active');
+      }
+    });
   } catch (err) {
     if (err.name !== 'TypeError') throw err;
     if (err.errorMessages.name === 'loginErr') {
@@ -132,6 +120,7 @@ authForm.addEventListener('submit', async (evt) => {
       for (const errorMessage of err.errorMessages) {
         createValidationMessage(
           inputs[errorMessage.name],
+          inputs[errorMessage.name].parentNode,
           'validation-error',
           error,
           'js-validate-error-icon',
@@ -139,14 +128,18 @@ authForm.addEventListener('submit', async (evt) => {
         );
       }
     }
+  } finally {
+    spinner.classList.remove('spinner_active');
   }
-
-  return token;
 });
 
-const authFormBlock = el('div', { class: 'auth' }, [
-  el('h2', { class: 'auth__title', textContent: 'Вход в аккаунт' }),
-  authForm,
-]);
+const authFormBlock = el(
+  'div',
+  { class: 'auth' },
+  el('div', { class: 'auth__wrapper' }, [
+    el('h2', { class: 'auth__title', textContent: 'Вход в аккаунт' }),
+    authForm,
+  ])
+);
 
 export default authFormBlock;

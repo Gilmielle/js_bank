@@ -10,7 +10,8 @@
     "build": "webpack --mode=production",
     "dev": "webpack serve --mode=development",
     "jest": "jest",
-    "cypress": "cypress open"
+    "cypress": "cypress open",
+    "serve": "serve dist -l 8080"
   },
   "author": "",
   "license": "ISC",
@@ -20,10 +21,12 @@
     "@types/jest": "^28.1.0",
     "babel-jest": "^28.1.0",
     "babel-loader": "^8.2.5",
+    "clean-webpack-plugin": "^4.0.0",
     "css-loader": "^6.7.1",
     "cypress": "^10.0.2",
     "eslint": "^8.16.0",
     "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-cypress": "^2.12.1",
     "eslint-plugin-import": "^2.26.0",
     "eslint-plugin-jest": "^26.4.6",
     "eslint-plugin-prettier": "^4.0.0",
@@ -34,12 +37,17 @@
     "prettier": "^2.6.2",
     "sass": "^1.52.2",
     "sass-loader": "^13.0.0",
+    "serve": "^13.0.2",
     "style-loader": "^3.3.1",
     "webpack": "^5.73.0",
     "webpack-cli": "^4.9.2",
     "webpack-dev-server": "^4.9.1"
   },
   "dependencies": {
-    "redom": "^3.28.0"
+    "chart.js": "^3.8.0",
+    "choices.js": "^10.1.0",
+    "redom": "^3.28.0",
+    "tui-pagination": "^3.4.1",
+    "ymaps": "^0.2.1"
   }
 }

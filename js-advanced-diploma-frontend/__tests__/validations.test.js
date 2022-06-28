@@ -1,4 +1,8 @@
-import { isLogPassValid } from '../src/components/validations';
+import {
+  isLogPassValid,
+  isTransferFormValid,
+  isExchangeFormValid,
+} from '../src/components/validations';
 
 test('Валидация незаполненных логина и пароля выдаёт ошибку', () => {
   const logData = {
@@ -43,4 +47,106 @@ test('Корректные логин и пароль проходят пров�
   expect(result.success.length).toBe(2);
   expect(result.success[0]).toBe('login');
   expect(result.success[1]).toBe('password');
+});
+
+test('Валидация незаполненного счёта выдаёт ошибку', () => {
+  const logData = {
+    to: '',
+    amount: '123',
+  };
+  const result = isTransferFormValid(logData);
+  expect(result.errors[0].message).toBe('Поле обязательно для заполнения');
+  expect(result.success.length).toBe(1);
+});
+
+test('Валидация незаполненной суммы выдаёт ошибку (перевод денег)', () => {
+  const logData = {
+    to: '123',
+    amount: '',
+  };
+  const result = isTransferFormValid(logData);
+  expect(result.errors[0].message).toBe('Поле обязательно для заполнения');
+  expect(result.success.length).toBe(1);
+});
+
+test('Валидация отрицательной суммы выдаёт ошибку (перевод денег)', () => {
+  const logData = {
+    to: '123',
+    amount: '-123',
+  };
+  const result = isTransferFormValid(logData);
+  expect(result.errors[0].message).toBe('Сумма не может быть отрицательной');
+  expect(result.success.length).toBe(1);
+});
+
+test('Валидация счёта с лишними символами выдаёт ошибку', () => {
+  const logData = {
+    to: '123sdfs34',
+    amount: '123',
+  };
+  const result = isTransferFormValid(logData);
+  expect(result.errors[0].message).toBe('Разрешены только цифры');
+  expect(result.success.length).toBe(1);
+});
+
+test('Валидация суммы с лишними символами выдаёт ошибку (перевод денег)', () => {
+  const logData = {
+    to: '123',
+    amount: '+123sdfg',
+  };
+  const result = isTransferFormValid(logData);
+  expect(result.errors[0].message).toBe('Присутствуют лишние символы');
+  expect(result.success.length).toBe(1);
+});
+
+test('Валидация корректно заполненной формы проходит проверку (перевод денег)', () => {
+  const logData = {
+    to: '123',
+    amount: '123',
+  };
+  const result = isTransferFormValid(logData);
+  expect(result.success.length).toBe(2);
+});
+
+test('Валидация незаполненной суммы выдаёт ошибку (обмен валюты)', () => {
+  const logData = {
+    from: 'ETH',
+    to: 'BTC',
+    amount: '',
+  };
+  const result = isExchangeFormValid(logData);
+  expect(result.errors[0].message).toBe('Поле обязательно для заполнения');
+  expect(result.success.length).toBe(0);
+});
+
+test('Валидация отрицательной суммы выдаёт ошибку (обмен валюты)', () => {
+  const logData = {
+    from: 'ETH',
+    to: 'BTC',
+    amount: '-123',
+  };
+  const result = isExchangeFormValid(logData);
+  expect(result.errors[0].message).toBe('Сумма не может быть отрицательной');
+  expect(result.success.length).toBe(0);
+});
+
+test('Валидация суммы с лишними символами выдаёт ошибку (обмен валюты)', () => {
+  const logData = {
+    from: 'ETH',
+    to: 'BTC',
+    amount: '+123sdfg',
+  };
+  const result = isExchangeFormValid(logData);
+  expect(result.errors[0].message).toBe('Присутствуют лишние символы');
+  expect(result.success.length).toBe(0);
+});
+
+test('Валидация корректной суммы проходит проверку (обмен валюты)', () => {
+  const logData = {
+    from: 'ETH',
+    to: 'BTC',
+    amount: '12',
+  };
+  const result = isExchangeFormValid(logData);
+  expect(result.success.length).toBe(1);
 });

@@ -5,9 +5,14 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 // eslint-disable-next-line no-undef
 module.exports = (env) => ({
-  entry: './src/index.js',
+  entry: {
+    index: './src/index.js',
+    'card-details': './src/card-details.js',
+    atms: './src/atms.js',
+    currency: './src/currency.js',
+  },
   output: {
-    filename: 'main.js',
+    filename: '[name].js',
     publicPath: '/',
   },
   module: {
@@ -23,10 +28,10 @@ module.exports = (env) => ({
         },
       },
       {
-        test: /\.scss$/i,
+        test: /\.(css|scss)$/i,
         use: [
           // Creates `style` nodes from JS strings
-          env.prod ? MiniCssExtractPlugin.loader : 'style-loader',
+          env.production ? MiniCssExtractPlugin.loader : 'style-loader',
           // Translates CSS into CommonJS
           'css-loader',
           // Compiles Sass to CSS
@@ -42,12 +47,27 @@ module.exports = (env) => ({
   plugins: [
     new HtmlWebpackPlugin({
       title: 'Банк Coin',
+      filename: 'index.html',
+      chunks: ['index'],
     }),
     new HtmlWebpackPlugin({
-      title: 'Банк Coin',
-      filename: 'test.html',
+      title: 'Банк Coin | Просмотр счёта',
+      filename: 'card-details.html',
+      chunks: ['card-details'],
     }),
-    new MiniCssExtractPlugin(),
+    new HtmlWebpackPlugin({
+      title: 'Банк Coin | Банкоматы',
+      filename: 'atms.html',
+      chunks: ['atms'],
+    }),
+    new HtmlWebpackPlugin({
+      title: 'Банк Coin | Валюта',
+      filename: 'currency.html',
+      chunks: ['currency'],
+    }),
+    new MiniCssExtractPlugin({
+      filename: ({ chunk }) => `${chunk.name.replace("/js/", "/css/")}.css`,
+    }),
   ],
   devServer: {
     historyApiFallback: true,

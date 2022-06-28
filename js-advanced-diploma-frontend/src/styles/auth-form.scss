@@ -1,12 +1,26 @@
 @import '_variabiles.scss';
 
 .auth {
-  margin: 100px auto;
-  padding: 50px 40px;
-  max-width: 500px;
-  min-height: 366px;
-  background: $background;
-  border-radius: 50px;
+  padding: 100px 0;
+
+  @media (max-width: 576px) {
+    padding: 50px 0;
+  }
+
+  &__wrapper {
+    margin: 0 auto;
+    padding: 50px 40px;
+    max-width: 500px;
+    min-height: 366px;
+    background: $background;
+    border-radius: 50px;
+
+    @media (max-width: 576px) {
+      padding: 20px 25px;
+      margin: 0 12px;
+      max-width: 350px;
+    }
+  }
 
   &__title {
     margin: 0;
@@ -15,6 +29,12 @@
     font-size: 34px;
     line-height: 40px;
     text-align: center;
+
+    @media (max-width: 576px) {
+      margin-bottom: 20px;
+      font-size: 24px;
+      line-height: 1;
+    }
   }
 }
 
@@ -30,6 +50,13 @@
     align-items: center;
     gap: 16px;
     margin-right: 45px;
+
+    @media (max-width: 576px) {
+      margin: 0;
+      width: 100%;
+      flex-direction: column;
+      align-items: flex-start;
+    }
   }
 
   &__span {
@@ -40,6 +67,10 @@
 
   &__input {
     width: 300px;
+
+    @media (max-width: 576px) {
+      width: inherit;
+    }
   }
 
   &__btn {
@@ -48,14 +79,4 @@
     margin-top: 3px;
     font-size: 14px;
   }
-}
-
-.js-auth-error {
-  position: absolute;
-  bottom: -30px;
-  left: 50%;
-  transform: translateX(-50%);
-  font-family: 'Ubuntu';
-  font-weight: 500;
-  color: $error;
 }

@@ -4,8 +4,9 @@ module.exports = {
     browser: true,
     es2021: true,
     'jest/globals': true,
+    'cypress/globals': true,
   },
-  plugins: ['prettier', 'jest'],
+  plugins: ['cypress', 'prettier', 'jest'],
   extends: ['eslint:recommended', 'plugin:jest/recommended', 'prettier'],
   parserOptions: {
     ecmaVersion: 'latest',

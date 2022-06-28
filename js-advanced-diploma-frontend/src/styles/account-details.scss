@@ -1,0 +1,350 @@
+@import '_variabiles.scss';
+
+.account-details {
+  display: grid;
+  grid-template-columns: 45% 51%;
+  gap: 50px;
+  padding-top: 44px;
+  padding-bottom: 50px;
+
+  @media (max-width: 1200px) {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__header {
+    grid-column: 1/-1;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    align-items: center;
+    gap: 24px;
+
+    @media (max-width: 576px) {
+      grid-template-columns: repeat(1, 1fr);
+    }
+  }
+
+  &__title {
+    margin: 0;
+    font-size: 34px;
+    line-height: 1.18;
+    letter-spacing: -0.02em;
+
+    @media (max-width: 768px) {
+      font-size: 28px;
+    }
+  }
+
+  &__btn {
+    justify-self: flex-end;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 0.8em 1.5em;
+
+    @media (max-width: 576px) {
+      justify-self: flex-start;
+    }
+  }
+
+  &__number {
+    margin: 0;
+    font-size: 34px;
+    line-height: 1.18;
+    letter-spacing: -0.02em;
+
+    @media (max-width: 1200px) {
+      grid-column: 1 / -1;
+    }
+
+    @media (max-width: 768px) {
+      font-size: 28px;
+    }
+
+    @media (max-width: 576px) {
+      font-size: 20px;
+    }
+  }
+
+  &__balance {
+    justify-self: flex-end;
+    margin: 0;
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+
+    @media (max-width: 1200px) {
+      justify-self: flex-start;
+    }
+  }
+
+  &__balance-sum {
+    margin-left: 50px;
+    font-weight: 400;
+  }
+
+  &__transfer-history {
+    grid-column: 1/-1;
+  }
+}
+
+.money-transfer,
+.balance-chart,
+.transfer-history {
+  padding: 25px 50px;
+  border-radius: 50px;
+
+  @media (max-width: 768px) {
+    padding: 25px;
+  }
+}
+
+.money-transfer {
+  background: $background;
+
+  &__title {
+    margin-bottom: 25px;
+  }
+}
+
+.transfer-form {
+  display: grid;
+  grid-template-columns: 36.5% 59%;
+  row-gap: 23px;
+  column-gap: 28px;
+  width: 100%;
+
+  @media (max-width: 576px) {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+  }
+
+  & .js-validate-label {
+
+    @media (max-width: 576px) {
+      right: 0;
+      bottom: -50px;
+    }
+  }
+
+  &__label {
+    align-self: center;
+    width: 100%;
+    text-align: end;
+    font-family: 'Ubuntu';
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 1.25;
+    letter-spacing: -0.01em;
+    color: $textLighter;
+
+    @media (max-width: 576px) {
+      text-align: start;
+    }
+  }
+
+  &__btn {
+    grid-column: 2/-1;
+    justify-self: flex-start;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    @media (max-width: 576px) {
+      align-self: flex-start;
+    }
+  }
+}
+
+.autocomplete {
+  position: relative;
+  display: inline-block;
+
+  &__list {
+    position: absolute;
+    border: 1px solid $btnDisabled;
+    border-bottom: none;
+    border-top: none;
+    z-index: 99;
+    top: 100%;
+    left: 0;
+    right: 0;
+  }
+
+  &__item {
+    padding: 10px;
+    cursor: pointer;
+    background-color: $textAccent;
+    border-bottom: 1px solid $btnDisabled;
+    transition: background-color 0.3s ease-in-out;
+
+    &:hover {
+      background-color: $backgroundDark;
+    }
+
+    &_active {
+      background-color: $secondaryHover;
+    }
+  }
+}
+
+.balance-chart {
+  box-shadow: $shadow;
+
+  &_wide {
+    grid-column: 1 / -1;
+  }
+
+  &__title {
+    margin-bottom: 25px;
+  }
+
+  &__wrapper {
+    max-height: 200px;
+  }
+}
+
+.transfer-history {
+  background: $background;
+  padding-bottom: 60px;
+
+  @media (max-width: 768px) {
+    padding-bottom: 30px;
+  }
+
+  &__title {
+    margin-bottom: 25px;
+  }
+
+  &__table {
+    width: 100%;
+  }
+}
+
+.transfer-table {
+  border-collapse: collapse;
+  margin-bottom: 25px;
+
+  &__from,
+  &__to {
+    width: 30%;
+
+    @media (max-width: 1200px) {
+      width: 35%;
+    }
+  }
+
+  &__sum {
+    width: 15%;
+  }
+
+  &__date {
+    width: 15%;
+  }
+
+  &__head-cell {
+    padding: 20px 0;
+    background-color: $primary;
+    font-family: 'Ubuntu';
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+    color: $textAccent;
+    text-align: left;
+
+    @media (max-width: 1200px) {
+      font-size: 0.9em;
+    }
+
+    &:first-child {
+      padding-left: 50px;
+      border-radius: 15px 0 0 15px;
+
+      @media (max-width: 1200px) {
+        padding-left: 20px;
+      }
+
+      @media (max-width: 576px) {
+        padding-left: 10px;
+      }
+    }
+
+    &:last-child {
+      border-radius: 0 15px 15px 0;
+    }
+  }
+
+  &__body {
+    display: none;
+
+    &_active {
+      display: table-row-group;
+    }
+  }
+
+  &__row {
+    border-bottom: 2px solid rgba(0, 82, 255, 0.1);
+  }
+
+  &__cell {
+    padding-top: 21px;
+    padding-bottom: 26px;
+    font-family: 'Ubuntu';
+    font-weight: 400;
+    line-height: 1.5;
+    letter-spacing: -0.01em;
+    color: $select;
+    word-break: break-all;
+
+    @media (max-width: 1200px) {
+      font-size: 0.9em;
+    }
+
+    @media (max-width: 576px) {
+      font-size: 0.8em;
+    }
+
+    &:first-child {
+      padding-left: 50px;
+
+      @media (max-width: 1200px) {
+        padding-left: 20px;
+      }
+
+      @media (max-width: 576px) {
+        padding-left: 10px;
+      }
+    }
+
+    &.transfer-plus {
+      color: $success;
+    }
+
+    &.transfer-minus {
+      color: $error;
+    }
+  }
+}
+
+.table-pagination {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+
+  &__btn {
+
+    @media (max-width: 576px) {
+      font-size: 0.8em;
+      padding: 0.8em;
+    }
+
+    &_active {
+      background-color: $primaryHover;
+    }
+  }
+}

@@ -1,0 +1,120 @@
+@import '_variabiles.scss';
+
+.cards {
+  padding-top: 42px;
+  padding-bottom: 50px;
+  display: flex;
+  flex-direction: column;
+  row-gap: 50px;
+
+  &__header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    @media (max-width: 1024px) {
+      flex-direction: column;
+      align-items: flex-start;
+      row-gap: 15px;
+    }
+  }
+
+  &__title {
+    margin: 0;
+    margin-right: 30px;
+    font-size: 34px;
+    line-height: 1.18;
+  }
+
+  &__btn {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    @media (max-width: 1024px) {
+      margin-left: 0;
+    }
+  }
+
+  & .choices {
+    min-width: 300px;
+    align-self: flex-end;
+
+    @media (max-width: 1024px) {
+      align-self: flex-start;
+    }
+
+    & [id$="-item-choice-1"] {
+      display: none;
+    }
+  }
+}
+
+.cards-list {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  column-gap: 70px;
+  row-gap: 50px;
+
+  @media (max-width: 1150px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media (max-width: 768px) {
+    grid-template-columns: repeat(1, 1fr);
+  }
+}
+
+.card {
+  padding: 22px;
+  box-shadow: $shadow;
+  border-radius: 9px;
+
+  @media (max-width: 576px) {
+    padding: 10px;
+  }
+
+  &__account {
+    margin: 0;
+    margin-bottom: 9px;
+    font-family: 'Ubuntu';
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 1.22;
+    color: $textLighter;
+  }
+
+  &__balance {
+    margin: 0;
+    margin-bottom: 9px;
+    font-family: 'Ubuntu';
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 1.43;
+    color: $textLighter;
+  }
+
+  &__footer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-end;
+  }
+
+  &__history {
+    margin: 0;
+    font-weight: 700;
+    font-size: 13px;
+    line-height: 1.15;
+  }
+
+  &__history-date {
+    display: block;
+    font-weight: 400;
+  }
+
+  &__btn {
+    padding: 1em 1.3em;
+  }
+}

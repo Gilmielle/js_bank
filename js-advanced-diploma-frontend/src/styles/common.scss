@@ -16,6 +16,7 @@ html {
 }
 
 body {
+  position: relative;
   min-height: 100vh;
   min-width: 320px;
   margin: 0;
@@ -91,6 +92,7 @@ ul, ol {
 }
 
 .btn_secondary {
+  padding: 0.9em 1.35em;
   color: $primary;
   background: $textAccent;
   border: 2px solid $primary;
@@ -106,6 +108,14 @@ ul, ol {
   &:disabled {
     border: 1px solid $btnDisabled;
   }
+}
+
+.section-title {
+  margin: 0;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
 }
 
 .visually-hidden {
@@ -158,45 +168,56 @@ ul, ol {
 .validate-label {
   position: relative;
 
-  & > .js-validate-label {
-    position: absolute;
-    right: 0;
-    left: 0;
+}
 
-    & > .js-validate-success-icon,
-    & > .js-validate-error-icon {
-      position: absolute;
-      right: -30px;
-      top: -10px;
-    }
+.js-validate-label {
+  position: absolute;
+  right: 0;
+  left: 0;
 
-    & > .js-validate-error-icon {
-      width: 24px;
-      height: 20px;
-    }
-
-    & > .js-validate-success-icon {
-      width: 20px;
-      height: 20px;
-    }
-
-    & > .js-validate-error-span,
-    & > .js-validate-success-span {
-      font-family: 'Ubuntu';
-      font-weight: 500;
-    }
-
-    & > .js-validate-error-span {
-      position: absolute;
-      right: 0;
-      top: 24px;
-      color: $error;
-    }
-
-    & > .js-validate-success-span {
-      color: $success;
-    }
+  @media (max-width: 576px) {
+    right: 7px;
+    left: 0px;
+    bottom: 20px;
   }
+}
+
+.js-validate-success-icon,
+.js-validate-error-icon {
+  position: absolute;
+  right: -30px;
+  top: -10px;
+}
+
+.js-validate-error-icon {
+  width: 24px;
+  height: 20px;
+}
+
+.js-validate-success-icon {
+  width: 20px;
+  height: 20px;
+}
+
+.js-validate-error-span,
+.js-validate-success-span {
+  font-family: 'Ubuntu';
+  font-weight: 500;
+
+  @media (max-width: 576px) {
+    font-size: 0.8em;
+  }
+}
+
+.js-validate-error-span {
+  position: absolute;
+  right: 0;
+  top: 24px;
+  color: $error;
+}
+
+.js-validate-success-span {
+  color: $success;
 }
 
 .validation-success {
@@ -207,30 +228,194 @@ ul, ol {
   border-color: $error;
 }
 
+.funds-js-validate-error-icon,
+.funds-js-validate-success-icon {
+  right: -25px;
+  top: 0px;
+}
+
+.funds-js-validate-error-span {
+  font-size: 0.8em;
+}
+
+.exchange-js-validate-error-icon,
+.exchange-js-validate-success-icon {
+  right: -23px;
+}
+
+.js-auth-error {
+  position: absolute;
+  bottom: -30px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: 'Ubuntu';
+  font-weight: 500;
+  color: $error;
+
+  @media (max-width: 576px) {
+    width: 100%;
+    text-align: center;
+  }
+}
+
+.js-transfer-error,
+.js-exchange-error {
+  grid-column: 1/-1;
+  color: $error;
+  text-align: center;
+  font-weight: 700;
+}
+
+.js-exchange-success,
+.js-transfer-success {
+  color: $success;
+}
+
+.spinner {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: rgba(0, 0, 0, 0.4);
+  visibility: hidden;
+  z-index: 1000;
+
+  &_active {
+    visibility: visible;
+  }
+
+  &__positioner {
+    position: relative;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 64px;
+    height: 64px;
+    transform-origin: center;
+  }
+
+  &__wrapper {
+    animation: rotateSpinner 5s linear infinite;
+  }
+
+  &__backgr {
+    stroke: $primary;
+    stroke-width: 2px;
+  }
+
+  &__filler {
+    stroke: #B3CEE2;
+    stroke-width: 2px;
+    stroke-dashoffset: 195px;
+    stroke-dasharray: 195px;
+    animation: fillSpinner 3s linear infinite alternate ;
+  }
+
+  @keyframes rotateSpinner {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  @keyframes fillSpinner {
+    to {
+      stroke-dashoffset: 0;
+    }
+  }
+}
+
+.choices {
+  margin-bottom: 0;
+  height: 44px;
+  font-family: 'Ubuntu';
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.5;
+  color: $select;
+
+  &__inner {
+    padding: 8px 16px;
+    background: $textAccent;
+    border: 1px solid $primary;
+    border-radius: 7px;
+    font-size: inherit;
+    letter-spacing: -0.03em;
+  }
+
+  &__list--single {
+    padding: 0;
+  }
+
+  &__list[role="listbox"] {
+    padding: 10px 0;
+  }
+}
+
+.choices[data-type*=select-one]::after {
+  right: 23px;
+  margin-top: -3px;
+}
+
+.is-focused .choices__inner,
+.is-open .choices__inner,
+.is-flipped.is-open .choices__inner {
+  border: 1px solid $primary;
+  border-radius: 7px;
+}
+
+.is-open .choices__list--dropdown,
+.is-open .choices__list[aria-expanded],
+.choices__list--dropdown,
+.choices__list[aria-expanded]  {
+  filter: drop-shadow(0px 5px 20px rgba(0, 0, 0, 0.25));
+  border-radius: 7px;
+  border: 1px solid $primary;
+}
+
+.choices__list--dropdown .choices__item--selectable,
+.choices__list[aria-expanded] .choices__item--selectable {
+  padding: 10px 16px;
+  font-family: 'Ubuntu';
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+.choices__list--dropdown .choices__item--selectable.is-highlighted,
+.choices__list[aria-expanded] .choices__item--selectable.is-highlighted {
+  background-color: $primaryLight;
+}
+
+
+.choices__list--dropdown .choices__item--selectable.is-selected {
+  background-image: url('../assets/images/check.svg');
+  background-position: right 17px center;
+  background-repeat: no-repeat;
+}
+
 .container {
   max-width: 1540px;
   margin: 0 auto;
   padding: 0 50px;
 
-  // @media (max-width: 1024px) {
-  //   max-width: 952px;
-  //   margin: 0 36px;
-  //   padding: 0;
-  //   grid-template-columns: repeat(9, 1fr);
-  // }
+  @media (max-width: 1024px) {
+    max-width: 964px;
+    margin: 0 30px;
+    padding: 0;
+  }
 
-  // @media (max-width: 768px) {
-  //   margin: 0 72px;
-  //   max-width: 624px;
-  //   grid-template-columns: repeat(6, 1fr);
-  // }
+  @media (max-width: 768px) {
+    max-width: 708px;
+  }
 
-  // @media (max-width: 576px) {
-  //   margin: 0 12px;
-  // }
+  @media (max-width: 576px) {
+    margin: 0 12px;
+    max-width: 552px;
+  }
 
-  // @media (max-width: 320px) {
-  //   max-width: 296px;
-  // }
+  @media (max-width: 320px) {
+    max-width: 296px;
+  }
 }
 
